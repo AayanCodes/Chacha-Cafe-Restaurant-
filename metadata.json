@@ -1,0 +1,6 @@
+{
+  "name": "Chacha-Cafe",
+  "description": "Chacha Cafe in Kiratpur, Uttar Pradesh. Delicious ice cream, fresh daily cakes, pizzas, burgers, shakes, cold coffee & combos on Manadwar Road.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
