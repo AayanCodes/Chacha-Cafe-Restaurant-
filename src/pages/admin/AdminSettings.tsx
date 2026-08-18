@@ -397,6 +397,22 @@ export const AdminSettings: React.FC = () => {
                   />
                 </div>
               </div>
+
+              <div>
+                <label className="block text-xs font-mono font-bold uppercase text-[#CBD5E1] mb-1.5">
+                  Google Maps Embed URL (Live Location)
+                </label>
+                <input
+                  type="text"
+                  value={settings.map_embed_url || ''}
+                  onChange={(e) => setSettings({ ...settings, map_embed_url: e.target.value })}
+                  placeholder="https://maps.google.com/maps?q=..."
+                  className="w-full bg-[#18181B] border border-red-500/30 rounded-2xl px-4 py-3 text-xs text-[#F8F5EE] font-sans"
+                />
+                <p className="text-[11px] text-zinc-400 font-sans mt-1">
+                  Default shows Chacha Cafe, Mandawar Road, Kiratpur. You can also paste your Google Maps Embed link here anytime.
+                </p>
+              </div>
             </div>
 
             {/* SAVE BUTTON */}

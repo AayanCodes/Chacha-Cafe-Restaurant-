@@ -12,7 +12,7 @@ export const RESTAURANT_INFO = {
   googleRating: 4.9,
   googleReviewsCount: 1280,
   openingHours: "Monday – Sunday: 8:00 AM – 11:00 PM",
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3460.518777123456!2d78.5280!3d29.7490!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjlcdegreeNDQnNTYuNCJOIDc4X2RlZ3JlZTMxJzQwLjgiRQ!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+  mapEmbedUrl: "https://maps.google.com/maps?q=Chacha%20Cafe%2C%20Manadwar%20Road%2C%20Kiratpur%2C%20Taqarubpur%20Israj%20Kheri%2C%20Uttar%20Pradesh%20246731%2C%20India&t=&z=16&ie=UTF8&iwloc=&output=embed"
 };
 
 export const MENU_CATEGORIES: MenuCategory[] = [
