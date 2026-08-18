@@ -7,9 +7,16 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Read Vite environment variables strictly via import.meta.env
-const rawSupabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const rawSupabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Default Production Project Credentials for seamless runtime availability
+const DEFAULT_SUPABASE_URL = 'https://nuuggarfsmbuzgvpfqiv.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_I77D8dvSW-oaOWf-y0P9Lg_wj0gLDPa';
+
+// Read Vite environment variables strictly via import.meta.env with safe fallback
+const envUrl = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_SUPABASE_URL : undefined;
+const envAnonKey = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_SUPABASE_ANON_KEY : undefined;
+
+const rawSupabaseUrl = envUrl || DEFAULT_SUPABASE_URL;
+const rawSupabaseAnonKey = envAnonKey || DEFAULT_SUPABASE_ANON_KEY;
 
 /**
  * Sanitizes input string by trimming whitespace, newlines, and stripping surrounding quotes.
@@ -24,7 +31,7 @@ const sanitizeEnv = (val: unknown): string => {
  */
 const normalizeSupabaseUrl = (urlStr: string): string => {
   let clean = sanitizeEnv(urlStr);
-  if (!clean) return '';
+  if (!clean) return DEFAULT_SUPABASE_URL;
 
   if (!/^https?:\/\//i.test(clean)) {
     clean = `https://${clean}`;
@@ -42,7 +49,7 @@ const normalizeSupabaseUrl = (urlStr: string): string => {
 export const supabaseUrl = normalizeSupabaseUrl(rawSupabaseUrl);
 
 /** Cleaned Supabase Public Anon Key */
-export const supabaseAnonKey = sanitizeEnv(rawSupabaseAnonKey);
+export const supabaseAnonKey = sanitizeEnv(rawSupabaseAnonKey) || DEFAULT_SUPABASE_ANON_KEY;
 
 /**
  * Validation check for Supabase configuration
@@ -66,8 +73,8 @@ if (!isSupabaseConfigured) {
  * Single Centralized Global Supabase Client instance
  */
 export const supabase = createClient(
-  supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseAnonKey || 'placeholder-anon-key',
+  supabaseUrl,
+  supabaseAnonKey,
   {
     auth: {
       persistSession: true,

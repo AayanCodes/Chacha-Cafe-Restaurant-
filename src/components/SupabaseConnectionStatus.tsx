@@ -5,28 +5,28 @@ import { supabaseUrl, supabaseAnonKey, isSupabaseConfigured } from '../lib/supab
 export const SupabaseConnectionStatus: React.FC<{ className?: string }> = ({ className = '' }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Directly check import.meta.env values
-  const rawUrl = import.meta.env.VITE_SUPABASE_URL || '';
-  const rawAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+  // Read active configured values or direct Vite env
+  const activeUrl = supabaseUrl || import.meta.env.VITE_SUPABASE_URL || '';
+  const activeAnonKey = supabaseAnonKey || import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-  const hasUrl = Boolean(rawUrl && rawUrl.trim() && !rawUrl.includes('your-project-id'));
-  const hasAnonKey = Boolean(rawAnonKey && rawAnonKey.trim() && !rawAnonKey.includes('your-actual-anon-key'));
+  const hasUrl = Boolean(activeUrl && activeUrl.trim() && !activeUrl.includes('your-project-id'));
+  const hasAnonKey = Boolean(activeAnonKey && activeAnonKey.trim() && !activeAnonKey.includes('your-actual-anon-key'));
 
   // Format masked display for diagnostics without leaking keys
   const getMaskedUrl = () => {
-    if (!rawUrl) return 'Not Detected';
+    if (!activeUrl) return 'Not Detected';
     try {
-      const url = new URL(rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`);
+      const url = new URL(activeUrl.startsWith('http') ? activeUrl : `https://${activeUrl}`);
       return url.hostname;
     } catch {
-      return `${rawUrl.slice(0, 12)}...`;
+      return `${activeUrl.slice(0, 12)}...`;
     }
   };
 
   const getMaskedKey = () => {
-    if (!rawAnonKey) return 'Not Detected';
-    if (rawAnonKey.length < 16) return 'Invalid / Too Short';
-    return `${rawAnonKey.slice(0, 6)}••••••••${rawAnonKey.slice(-4)} (${rawAnonKey.length} chars)`;
+    if (!activeAnonKey) return 'Not Detected';
+    if (activeAnonKey.length < 16) return 'Invalid / Too Short';
+    return `${activeAnonKey.slice(0, 6)}••••••••${activeAnonKey.slice(-4)} (${activeAnonKey.length} chars)`;
   };
 
   return (
